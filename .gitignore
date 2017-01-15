@@ -1,3 +1,8 @@
+# Custom files
+*.db
+P1_P2*.txt
+*.dblite
+
 # Compiled Object files
 *.slo
 *.lo
