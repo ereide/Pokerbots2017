@@ -3,8 +3,9 @@ import os
 # the environment one. Even though windows is the problem,
 # do it for all platforms
 newpath=os.environ.get('PATH')
+
+
 env = Environment(ENV = { 'PATH' : newpath })
 
 boost_libs = ['boost_program_options', 'boost_system', 'pthread']
-env.Program('player', ['src/main.cpp', 'src/player.cpp'], LIBS=boost_libs)
-
+env.Program('player', ['src/main.cpp', 'src/player.cpp', 'src/card.cpp', 'src/deck.cpp'], LIBS=boost_libs)
