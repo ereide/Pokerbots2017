@@ -1,19 +1,22 @@
 #ifndef CARD_H
 #define CARD_H
 
-enum Suit {HEARTS, SPADES, CLUBS, DIAMONDS};
-enum Rank {TWO = 2, THREE = 3, FOUR = 4, FIVE = 5, SIX = 6, SEVEN = 7, EIGHT = 8, NINE = 9, TEN = 10, JACK = 11, QUEEN = 12, KING = 13, ACE = 14 }
+#define MAX_SUITS 4
+#define MAX_RANK 13
+
+extern const char RANKS[];
+extern const char SUITS[];
 
 class Card
 {
     public:
-        Card(Suit suit, Rank rank);
+        Card(char suit, char value);
 
     private:
-        Suit suit;
-        Value value;
+        char suit;
+        char value;
 
-    friend class Deck
+    friend class Deck;
 };
 
 #endif // CARD_H
