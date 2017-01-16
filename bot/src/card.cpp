@@ -1,12 +1,10 @@
 #include "card.hpp"
 
-Card::Card(Suit suit, Rank rank);
-{
-    this.suit = suit;
-    this.rank = rank;
-}
+const char RANKS[MAX_RANK + 1] = {'A','2','3','4','5','6','7','8','9','T','J','Q','K', '?'};
+const char SUITS[MAX_SUITS + 1] = {'H','D','C','S', '?'};
 
-Card::~Card()
+Card::Card(char suit, char value)
 {
-    //dtor
+    this->suit = suit;
+    this->value = value;
 }
