@@ -4,6 +4,7 @@ P1_P2*.txt
 *.dblite
 *.cbp
 *.layout
+*player
 
 # Compiled Object files
 *.slo
