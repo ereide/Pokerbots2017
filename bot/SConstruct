@@ -5,5 +5,6 @@ import os
 newpath=os.environ.get('PATH')
 env = Environment(ENV = { 'PATH' : newpath })
 
-boost_libs = ['boost_program_options', 'boost_system']
+boost_libs = ['boost_program_options', 'boost_system', 'pthread']
 env.Program('player', ['src/main.cpp', 'src/player.cpp'], LIBS=boost_libs)
+
