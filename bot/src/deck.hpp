@@ -1,8 +1,10 @@
 #ifndef DECK_H
 #define DECK_H
 
-#include "card.hpp"
 #include <vector>
+
+#include "constants.hpp"
+#include "card.hpp"
 
 using std::vector;
 

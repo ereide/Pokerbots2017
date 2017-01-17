@@ -18,7 +18,6 @@ Deck::Deck() : size(0)
             size++;
         }
     }
-
     shuffle();
 }
 
