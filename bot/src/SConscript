@@ -6,18 +6,21 @@ import os
 newpath=os.environ.get('PATH')
 
 common_libs = ['pthread']
-test_libs = ['gtest']
 boost_libs = ['boost_program_options', 'boost_system']
 
-#cpppath      = ['./src']
-libpath      = ['.', 'googletest/googletest/src/gtest-all']
+cpppath      = ['./src']
+libpath      = ['.']
 libs         = [ common_libs, boost_libs]
+cppflags =['-Werror', '-Wall', '-Wextra']
+
 
 
 env = Environment(ENV = { 'PATH' : newpath })
-#env.Append(CPPPATH = cpppath)
 env.Append(LIBS = libs)
-#env.Append(LIBPATH = libpath)
+
+# env.Append(CPPFLAGS = cppflags)
+# env.Append(CPPPATH = cpppath)
+# env.Append(LIBPATH = libpath)
 
 
 source_files = ['main.cpp', 'player.cpp', 'card.cpp', 'deck.cpp', 'board.cpp']
