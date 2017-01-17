@@ -26,12 +26,15 @@ DUPLICATE = true
 #   PLAYER_1_RESET_KEYS = false
 
 # SOCKET: Engine will wait for bot to connect to a designed socket.
-#   PLAYER_2_TYPE = SOCKET
-#   PLAYER_2_NAME = SOCKETBOT
+  # PLAYER_2_TYPE = SOCKET
+  # PLAYER_2_NAME = SOCKETBOT
 
 # RANDOM: Engine will use its own bot that plays randomly.
-#   PLAYER_1_TYPE = RANDOM
-#   PLAYER_1_NAME = RANDOMBOT
+  # PLAYER_1_TYPE = RANDOM
+  # PLAYER_1_NAME = RANDOMBOT1
+   #  PLAYER_1_TYPE = RANDOM
+    # PLAYER_1_NAME = RANDOM2
+
 
 # CHECKFOLD: Engine will use its own bot that checks/folds as appropriate.
 #   PLAYER_2_TYPE = CHECKFOLD
