@@ -5,6 +5,10 @@ P1_P2*.txt
 *.cbp
 *.layout
 *player
+*test
+
+# Folders
+build/
 
 # Compiled Object files
 *.slo
