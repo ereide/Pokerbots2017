@@ -6,9 +6,6 @@
 
 using std::vector;
 
-#define MAX_RANK 13
-#define MAX_SUITS 4
-
 class Deck
 {
 private:
