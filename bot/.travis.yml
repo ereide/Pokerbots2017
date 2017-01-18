@@ -1,5 +1,0 @@
-langlanguage: cpp
-compiler:
-  - gcc
-  - clang
-script: scons
