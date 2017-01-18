@@ -1,8 +1,12 @@
-#define BOOST_TEST_MODULE My Test 
-#include <boost/test/included/unit_test.hpp> 
+//#include <boost/test/included/unit_test.hpp> 
 
 #include "card.hpp"
 #include "deck.hpp"
+
+
+BOOST_AUTO_TEST_SUITE(card_and_deck_tests);
+
+
 
 /*
 * Tests the card and deck equality operator
@@ -72,6 +76,6 @@ BOOST_AUTO_TEST_CASE(testing_deck)
         card_2 = deck.drawCard();
         BOOST_ASSERT(card_1 != card_2);
     }    
-
 }
 
+BOOST_AUTO_TEST_SUITE_END();
