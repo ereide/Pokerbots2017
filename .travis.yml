@@ -1,7 +1,8 @@
+sudo: required
 
-before install:
-  sudo apt-get update  
-  sudo apt-get install scons
+before_install:
+ - sudo apt-get update  
+ - sudo apt-get install libboost-dev
 
 language: cpp
 script: ./build.sh
