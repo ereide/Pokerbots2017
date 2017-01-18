@@ -12,17 +12,21 @@ extern const suit_enum_t SUITS[];
 class Card
 {
     public:
-        Card(char suit, char value);
+        Card(suit_enum_t suit, rank_enum_t value);
         Card(void);
-        int get_rank(void);
+
+        //get attributes
+        rank_enum_t get_rank();
+        suit_enum_t get_suit();
+
+
+        //operator overload
         bool operator==(const Card& other);
         bool operator!=(const Card& other);
 
     private:
-        char suit;
-        char value;
-
-
+        suit_enum_t suit;
+        rank_enum_t value;
 
     friend class Deck;
 };
