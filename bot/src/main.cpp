@@ -13,20 +13,19 @@ int main(int argc, char *argv[])
   std::string host = "localhost";
   int port;
   opt::options_description desc("Allowed options");
-  desc.add_options()
-    ("host,h", opt::value<std::string>(&host), "HOST")
-    ("port", opt::value<int>(&port)->required(), "PORT")
-  ;
+  desc.add_options()("host,h", opt::value<std::string>(&host), "HOST")("port", opt::value<int>(&port)->required(), "PORT");
 
   opt::positional_options_description p;
   p.add("port", 1);
 
   opt::variables_map vm;
-  try {
-    opt::store(opt::command_line_parser(argc, argv).
-               options(desc).positional(p).run(), vm);
+  try
+  {
+    opt::store(opt::command_line_parser(argc, argv).options(desc).positional(p).run(), vm);
     opt::notify(vm);
-  } catch (const std::exception& e) {
+  }
+  catch (const std::exception &e)
+  {
     std::cout << "Usage: pokerbot [-h HOST] PORT\n";
     std::cerr << e.what() << std::endl;
     return 1;
@@ -38,7 +37,8 @@ int main(int argc, char *argv[])
   sprintf(port_buf, "%d", port);
   std::cout << "Connecting to " << host << ":" << port << "\n";
   stream.connect(host, port_buf);
-  if (!stream) {
+  if (!stream)
+  {
     std::cout << "Could not connect to " << host << ":" << port << "\n";
     return 1;
   }
@@ -48,5 +48,4 @@ int main(int argc, char *argv[])
   player.run(stream);
 
   return 0;
-
 }

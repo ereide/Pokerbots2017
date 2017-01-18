@@ -10,22 +10,22 @@ using std::vector;
 
 class Deck
 {
-    private:
-        static const int MAX_SIZE = 52;
+  private:
+    static const int MAX_SIZE = 52;
 
-        int size;
-        vector<Card> cards;
+    int size;
+    vector<Card> cards;
 
-    public:
-        Deck();
-        ~Deck();
-        Card drawCard();
-        void shuffle();
-        int getDeckSize() const {return size;}
+  public:
+    Deck();
+    ~Deck();
+    Card drawCard();
+    void shuffle();
+    int getDeckSize() const { return size; }
 
-        //operator overload
-        bool operator==(const Deck& other);
-        bool operator!=(const Deck& other);
+    //operator overload
+    bool operator==(const Deck &other);
+    bool operator!=(const Deck &other);
 };
 
 #endif

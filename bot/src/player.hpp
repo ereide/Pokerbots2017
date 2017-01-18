@@ -5,10 +5,11 @@
 
 using boost::asio::ip::tcp;
 
-class Player {
- public:
+class Player
+{
+public:
   Player();
   void run(tcp::iostream &stream);
 };
 
-#endif  // __PLAYER_HPP__
+#endif // __PLAYER_HPP__

@@ -41,7 +41,7 @@ class Board
     void reveal_flop();
     void reveal_turn();
     void reveal_river();
-    
+
     void set_hero_hand(const Card &card_1,
                        const Card &card_2);
     void set_flop(const Card &flop_1,

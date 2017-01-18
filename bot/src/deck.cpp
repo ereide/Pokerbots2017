@@ -26,7 +26,7 @@ Deck::~Deck() {}
 void Deck::shuffle()
 {
     size = MAX_SIZE;
-    std::random_shuffle(&cards[0], &cards[MAX_SIZE-1]);
+    std::random_shuffle(&cards[0], &cards[MAX_SIZE - 1]);
 }
 
 Card Deck::drawCard()
@@ -42,7 +42,8 @@ Card Deck::drawCard()
     return cards[size];
 }
 
-bool Deck::operator==(const Deck& other) {
+bool Deck::operator==(const Deck &other)
+{
     bool ans = true;
     int size = this->size;
     if (size != other.size)
@@ -57,11 +58,12 @@ bool Deck::operator==(const Deck& other) {
             {
                 return false;
             }
-        } 
-        return true;   
+        }
+        return true;
     }
 }
 
-bool Deck::operator!=(const Deck& other) {
-  return !(*this == other);
+bool Deck::operator!=(const Deck &other)
+{
+    return !(*this == other);
 }

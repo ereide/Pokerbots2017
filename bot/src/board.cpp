@@ -66,7 +66,7 @@ void Board::reveal_river()
 }
 
 void Board::set_hero_hand(const Card &card_1,
-                   const Card &card_2)
+                          const Card &card_2)
 {
     hero_hand = Hand(card_1, card_2);
 }
