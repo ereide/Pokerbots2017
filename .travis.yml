@@ -1,5 +1,2 @@
-langlanguage: cpp
-compiler:
-  - gcc
-  - clang
+language: cpp
 script: ./build.sh
