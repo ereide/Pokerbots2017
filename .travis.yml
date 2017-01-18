@@ -2,4 +2,4 @@ langlanguage: cpp
 compiler:
   - gcc
   - clang
-script: scons
+script: bot/scons
