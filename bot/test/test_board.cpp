@@ -21,6 +21,10 @@ BOOST_AUTO_TEST_CASE(board_creation)
     board.reveal_flop();
     board.reveal_turn();
     board.reveal_turn();
+    
+
+    BOOST_ASSERT(board.getDeckSize() == 43);
+    
 }
 
 /*

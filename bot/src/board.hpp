@@ -10,12 +10,20 @@ enum card_num_t
     CARD_1,
     CARD_2
 };
+
+enum player_t
+{
+    HERO_P,
+    VILLAIN_P
+};
+
 enum winner_t
 {
-    HERO,
-    VILLAIN,
-    SPLIT
+    HERO_WINS,
+    VILLAIN_WINS,
+    SPLIT_POT
 };
+
 
 class Hand
 {
@@ -23,6 +31,8 @@ class Hand
     Hand();
     Hand(const Card &card_1, const Card &card_2);
     void discard(const card_num_t &card_num, const Card &new_card);
+
+    void countHand(int rank_count[13], int suit_count[4]);
 
     //operator overload
     bool operator==(const Hand &other);
@@ -52,9 +62,12 @@ class Board
 
     winner_t winner();
 
+    void fillCountLists(int hero_rank_count[13], int hero_suit_count[4], int villain_rank_count[13], int villain_suit_count[4]);
+
+
     Hand getHeroHand() const { return hero_hand; };
     Hand getVillainHand() const { return villain_hand; };
-    Card *getVisibleCards();
+    void getVisibleCards(Card board_cards[5]);
     int getDeckSize() const { return deck.getDeckSize(); };
 
   protected:

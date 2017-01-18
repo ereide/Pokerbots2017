@@ -24,6 +24,22 @@ void Hand::discard(const card_num_t &card_num, const Card &new_card)
     }
 }
 
+void Hand::countHand(int rank_count[13], int suit_count[4])
+{
+    rank_enum_t value;
+    suit_enum_t suit;
+
+    value = card_1.get_rank();
+    suit = card_1.get_suit();
+    rank_count[value] += 1;
+    suit_count[value] += 1;
+
+    value = card_2.get_rank();
+    suit = card_2.get_suit();
+    rank_count[value] += 1;
+    suit_count[value] += 1;
+}
+
 bool Hand::operator==(const Hand &other)
 {
     bool same = ((this->card_1 == other.card_1) && (this->card_2 == other.card_2));
@@ -92,14 +108,40 @@ void Board::set_river(const Card &river_card)
 
 winner_t Board::winner()
 {
-    int hero_card_count[13] = {0};
-    int villain_card_count[13] = {0};
+    int hero_rank_count[13] = {0};
+    int villain_rank_count[13] = {0};
+    int hero_suit_count[4] = {0};
+    int villain_suit_count[4] = {0};
 
-    return SPLIT;
+    fillCountLists(hero_rank_count, hero_suit_count, villain_rank_count, villain_suit_count);
+
+    return SPLIT_POT;
 }
 
-Card *Board::getVisibleCards()
+void Board::getVisibleCards(Card board_cards[5])
 {
-    Card board_cards[5] = {flop_1, flop_2, flop_3, turn, river};
-    return board_cards;
+    board_cards[0] = flop_1;
+    board_cards[1] = flop_2;
+    board_cards[2] = flop_3;
+    board_cards[3] = turn;
+    board_cards[4] = river;
+}
+
+void Board::fillCountLists(int hero_rank_count[13], int hero_suit_count[4], int villain_rank_count[13], int villain_suit_count[4])
+{
+    Card board_cards[5];
+    getVisibleCards(board_cards);
+
+    for (int i = 0; i < 5; i++)
+    {
+        rank_enum_t value = board_cards[i].get_rank();
+        suit_enum_t suit = board_cards[i].get_suit();
+        hero_rank_count[value] += 1;
+        villain_rank_count[value] += 1;
+        hero_suit_count[value] += 1;
+        villain_suit_count[value] += 1;
+    }
+
+    hero_hand.countHand(hero_rank_count, hero_suit_count);
+    villain_hand.countHand(villain_rank_count, villain_suit_count);
 }
