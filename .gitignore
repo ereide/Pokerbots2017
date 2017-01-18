@@ -5,6 +5,7 @@ P1_P2*.txt
 *.cbp
 *.layout
 *player
+bot/test/test
 
 # Folders
 build/

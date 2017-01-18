@@ -18,8 +18,23 @@ BOOST_AUTO_TEST_CASE(board_creation)
     
     BOOST_ASSERT(hero_hand != villain_hand);
 
+    board.reveal_flop();
+    board.reveal_turn();
+    board.reveal_turn();
+
 
 }
+
+
+/*
+* Tests the card and deck equality operator
+*/
+BOOST_AUTO_TEST_CASE(board_winner) 
+{
+
+}
+
+
 
 BOOST_AUTO_TEST_SUITE_END()
 
