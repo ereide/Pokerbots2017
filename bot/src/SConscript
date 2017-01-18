@@ -1,22 +1,10 @@
-import os
-# On Windows, the path is incorrect, so change the path to
-# the environment one. Even though windows is the problem,
-# do it for all platforms
+Import('env')
 
-newpath=os.environ.get('PATH')
-
-common_libs = ['pthread']
-boost_libs = ['boost_program_options', 'boost_system']
 
 cpppath      = ['./src']
 libpath      = ['.']
-libs         = [ common_libs, boost_libs]
-cppflags =['-Werror', '-Wall', '-Wextra']
+cppflags     = ['-Werror', '-Wall', '-Wextra']
 
-
-
-env = Environment(ENV = { 'PATH' : newpath })
-env.Append(LIBS = libs)
 
 # env.Append(CPPFLAGS = cppflags)
 # env.Append(CPPPATH = cpppath)
@@ -24,6 +12,11 @@ env.Append(LIBS = libs)
 
 
 source_files = ['main.cpp', 'player.cpp', 'card.cpp', 'deck.cpp', 'board.cpp']
+
 env.VariantDir('build', 'src', duplicate=0)
 
+src = env.Library('../player', source_files)
+
 env.Program('../player', source_files)
+
+Return('src')

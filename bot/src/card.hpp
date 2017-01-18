@@ -15,6 +15,8 @@ class Card
         Card(char suit, char value);
         Card(void);
         int get_rank(void);
+        bool operator==(const Card& other);
+        bool operator!=(const Card& other);
 
     private:
         char suit;

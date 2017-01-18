@@ -1,2 +1,22 @@
 
-SConscript('src/SConscript', variant_dir='build', duplicate = 0)
+import os
+# On Windows, the path is incorrect, so change the path to
+# the environment one. Even though windows is the problem,
+# do it for all platforms
+
+newpath = os.environ.get('PATH')
+
+common_libs = ['pthread']
+boost_libs = ['boost_program_options', 'boost_system']
+libs = [common_libs, boost_libs]
+
+env = Environment(ENV = { 'PATH' : newpath })
+
+env.Append(LIBS = libs)
+
+
+
+src = SConscript('src/SConscript', 'env', variant_dir='build', duplicate = 0)
+
+SConscript('test/SConscript', 'env src')
+
