@@ -24,6 +24,16 @@ void Hand::discard(card_num_t card_num, Card new_card)
     }
 }
 
+bool Hand::operator==(const Hand& other) {
+    bool same = ((this->card_1 == other.card_1) && (this->card_2 == other.card_2));
+    bool opposite = ((this->card_1 == other.card_2) && (this->card_2 == other.card_1));   
+    return same ^ opposite;
+}
+
+bool Hand::operator!=(const Hand& other) {
+  return !(*this == other);
+}
+
 Board::Board()
 {
     deck.shuffle();
@@ -63,4 +73,11 @@ winner_t Board::winner()
 
     return SPLIT;
 }
+
+Card* Board::getVisibleCards()
+{
+
+}
+
+
 

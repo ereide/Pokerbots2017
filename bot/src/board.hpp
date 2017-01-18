@@ -16,6 +16,11 @@ class Hand
         Hand(Card card_1, Card card_2);
         void discard(card_num_t card_num, Card new_card);
 
+
+        //operator overload
+        bool operator==(const Hand& other);
+        bool operator!=(const Hand& other);
+
     private:
         Card card_1;
         Card card_2;
@@ -30,7 +35,14 @@ class Board
         void reveal_turn();
         void reveal_river();
         winner_t winner();
+
+        Hand getHeroHand() const {return hero_hand;};
+        Hand getVillainHand() const {return villain_hand;};
+        Card* getVisibleCards();
+
+
     protected:
+
     private:
         Deck deck;
         Hand hero_hand;

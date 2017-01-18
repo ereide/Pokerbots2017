@@ -18,7 +18,7 @@ env.Append(CPPPATH = cpppath)
 # env.Append(CPPFLAGS = cppflags)
 
 
-source_files = ['test_deck.cpp']
+source_files = ['main.cpp']
 
 #env.VariantDir('build', 'src', duplicate=0)
 
