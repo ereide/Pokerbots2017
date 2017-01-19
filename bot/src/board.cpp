@@ -155,6 +155,8 @@ winner_t Board::winner()
 
     fillCountLists(hero_rank_count, hero_suit_count, villain_rank_count, villain_suit_count);
 
+    
+
     return SPLIT_POT;
 }
 

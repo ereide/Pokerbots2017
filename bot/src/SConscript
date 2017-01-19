@@ -11,7 +11,7 @@ cppflags     = ['-Werror', '-Wall', '-Wextra']
 # env.Append(LIBPATH = libpath)
 
 
-source_files = ['main.cpp', 'player.cpp', 'card.cpp', 'deck.cpp', 'board.cpp']
+source_files = ['main.cpp', 'player.cpp', 'card.cpp', 'deck.cpp', 'board.cpp', 'evaluator.cpp']
 
 env.VariantDir('build', 'src', duplicate=0)
 

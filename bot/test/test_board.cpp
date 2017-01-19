@@ -61,7 +61,7 @@ BOOST_AUTO_TEST_CASE(board_counting)
 */
 BOOST_AUTO_TEST_CASE(board_winner)
 {
-
+    
 }
 
 BOOST_AUTO_TEST_SUITE_END()
