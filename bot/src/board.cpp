@@ -1,5 +1,10 @@
-#include "board.hpp"
 #include <iostream>
+
+#include "board.hpp"
+
+#include "SevenEval.h"
+
+
 
 
 Hand::Hand()
@@ -84,18 +89,19 @@ void Board::reveal_river()
 }
 
 void Board::set_hand(const player_t &player, const Card &card_1,
-                          const Card &card_2)
+                     const Card &card_2)
 {
     this->deck.extractCard(card_1);
-    this->deck.extractCard(card_2);    
+    this->deck.extractCard(card_2);
 
-    switch (player){
-        case HERO_P:
-            hero_hand = Hand(card_1, card_2);
-            break;
-        case VILLAIN_P:
-            villain_hand = Hand(card_1, card_2);
-            break;
+    switch (player)
+    {
+    case HERO_P:
+        hero_hand = Hand(card_1, card_2);
+        break;
+    case VILLAIN_P:
+        villain_hand = Hand(card_1, card_2);
+        break;
     }
 }
 
@@ -148,16 +154,37 @@ void Board::set_river(const Card &river_card)
 
 winner_t Board::winner()
 {
-    int hero_rank_count[13] = {0};
+    //counts the numbers and suits of the cards in the
+    /*    int hero_rank_count[13] = {0};
     int villain_rank_count[13] = {0};
     int hero_suit_count[4] = {0};
     int villain_suit_count[4] = {0};
 
     fillCountLists(hero_rank_count, hero_suit_count, villain_rank_count, villain_suit_count);
+*/
 
-    
+    int hero_rank = SevenEval::GetRank(flop_1.card_to_int(), flop_2.card_to_int(), flop_3.card_to_int(),
+                                   turn.card_to_int(), river.card_to_int(),
+                                   hero_hand.card_1.card_to_int(), hero_hand.card_2.card_to_int());
 
-    return SPLIT_POT;
+    int villain_rank = SevenEval::GetRank(flop_1.card_to_int(), flop_2.card_to_int(), flop_3.card_to_int(),
+                                      turn.card_to_int(), river.card_to_int(),
+                                      villain_hand.card_1.card_to_int(), villain_hand.card_2.card_to_int());
+
+    if (hero_rank > villain_rank)
+    {
+        return HERO_WINS;
+    }
+
+    else if (hero_rank == villain_rank)
+    {
+        return SPLIT_POT;
+    }
+
+    else
+    {
+        return VILLAIN_WINS;
+    }
 }
 
 void Board::getVisibleCards(Card board_cards[5])

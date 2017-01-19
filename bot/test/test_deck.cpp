@@ -7,7 +7,6 @@
 BOOST_AUTO_TEST_SUITE(card_and_deck_tests);
 
 
-
 /*
 * Tests the card and deck equality operator
 */
@@ -39,14 +38,29 @@ BOOST_AUTO_TEST_CASE(testing_card_equality)
 */
 BOOST_AUTO_TEST_CASE(testing_get_card_attributes) 
 {
-    suit_enum_t suit = HEARTS;
-    rank_enum_t rank = SEVEN;
+    suit_enum_t suit = HEARTS_S;
+    rank_enum_t rank = SEVEN_R;
     Card card(suit, rank);
 
     BOOST_ASSERT(suit == card.get_suit());
     BOOST_ASSERT(rank == card.get_rank());
-    BOOST_ASSERT(SPADES != card.get_suit());
-    BOOST_ASSERT(KING != card.get_rank());
+    BOOST_ASSERT(SPADES_S != card.get_suit());
+    BOOST_ASSERT(KING_R != card.get_rank());
+}
+
+
+/*
+* Tests the card to int method
+*/
+BOOST_AUTO_TEST_CASE(testing_card_to_int) 
+{
+    Card card_1(SPADES_S, ACE_R);
+    Card card_2(CLUBS_S, TWO_R);
+    Card card_3(HEARTS_S, QUEEN_R);
+
+    BOOST_ASSERT(card_1.card_to_int() == 0);
+    BOOST_ASSERT(card_2.card_to_int() == 51);
+    BOOST_ASSERT(card_3.card_to_int() == 15);
 }
 
 /*
@@ -86,13 +100,24 @@ BOOST_AUTO_TEST_CASE(test_extract_card)
     Deck deck_1;
     Deck deck_2 = deck_1;
 
-    Card card(HEARTS, SEVEN);
+    Card card(HEARTS_S, SEVEN_R);
 
+    //Checking equality
     BOOST_ASSERT(deck_1 == deck_2);
-    deck_1.extractCard(card);
+
+    //extracting a card from deck 1
+    BOOST_ASSERT(deck_1.extractCard(card));
+
+    //checking that they now are unequal
     BOOST_ASSERT(deck_1 != deck_2);
+
+    //Extracting the same card from deck 2
     BOOST_ASSERT(deck_2.extractCard(card));
+
+    //Checking that they again are equal
     BOOST_ASSERT(deck_1 == deck_2);
+
+    //Checking that extracting this card again will lead to failure
     BOOST_ASSERT(~deck_2.extractCard(card));
 }
 

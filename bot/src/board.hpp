@@ -37,9 +37,11 @@ public:
   bool operator==(const Hand &other);
   bool operator!=(const Hand &other);
 
-private:
   Card card_1;
   Card card_2;
+
+private:
+
 };
 
 class Board

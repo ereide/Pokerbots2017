@@ -2,10 +2,3 @@
 
 
 
-
-Evaluator::Evaluator()
-{
-
-}
-
-

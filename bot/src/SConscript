@@ -1,14 +1,19 @@
-Import('env')
+Import('env eval')
+env = env.Clone()
 
-
-cpppath      = ['./src']
-libpath      = ['.']
-cppflags     = ['-Werror', '-Wall', '-Wextra']
 
 
 # env.Append(CPPFLAGS = cppflags)
 # env.Append(CPPPATH = cpppath)
 # env.Append(LIBPATH = libpath)
+
+
+common_libs = ['pthread']
+boost_libs = ['boost_program_options', 'boost_system']
+
+libs = [common_libs, boost_libs, eval]
+
+env.Append(LIBS = libs)
 
 
 source_files = ['main.cpp', 'player.cpp', 'card.cpp', 'deck.cpp', 'board.cpp', 'evaluator.cpp']

@@ -3,6 +3,7 @@
 
 #include "constants.hpp"
 
+/*
 enum hand_t
 {
   HIGH_CARD = 0,
@@ -14,15 +15,8 @@ enum hand_t
   FOUR_OF_A_KIND,
   STRAIGHT_FLUSH
 };
+*/
 
-class Evaluator
-{
-  public:
-    Evaluator();
 
-    
-  private:
-
-};
 
 #endif // CARD_H

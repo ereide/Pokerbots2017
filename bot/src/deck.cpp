@@ -68,7 +68,9 @@ bool Deck::extractCard(const Card &card)
     else
     {
         Card new_card = this->drawCard();
-        this->cards[index] = card;
+        this->cards[index] = new_card;
+        this->cards[size] = card;
+        return true;
     }
 }
 
