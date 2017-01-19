@@ -216,3 +216,17 @@ void Board::fillCountLists(int hero_rank_count[13], int hero_suit_count[4], int 
     hero_hand.countHand(hero_rank_count, hero_suit_count);
     villain_hand.countHand(villain_rank_count, villain_suit_count);
 }
+
+void Board::restart()
+{
+    hero_hand = Hand();
+    villain_hand = Hand();
+
+    flop_1 = Card();
+    flop_2 = Card();
+    flop_3 = Card();
+    turn = Card();
+    river = Card();
+
+    deck.shuffle();
+}

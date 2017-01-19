@@ -92,7 +92,22 @@ BOOST_AUTO_TEST_CASE(board_winner)
     //asserting that the hero wins with the given hand
     BOOST_ASSERT(winner == HERO_WINS);
 
-    
+    board.restart();
+    BOOST_ASSERT(board.getDeckSize() == 52);
+
+
+    board.set_hand(VILLAIN_P, card_hero_1, card_hero_2);
+    board.set_hand(HERO_P, card_villain_1, card_villain_2);
+
+    board.set_flop(flop_1, flop_2, flop_3);
+    board.set_turn(turn);
+    board.set_river(river);
+
+    winner = board.winner();    
+
+    //asserting that the hero wins with the given hand
+    BOOST_ASSERT(winner == VILLAIN_WINS);
+
 }
 
 BOOST_AUTO_TEST_SUITE_END()

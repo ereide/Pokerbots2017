@@ -65,6 +65,8 @@ public:
 
   winner_t winner();
 
+  void restart();
+
   void fillCountLists(int hero_rank_count[13], int hero_suit_count[4], int villain_rank_count[13], int villain_suit_count[4]);
 
   Hand getHeroHand() const { return hero_hand; };
