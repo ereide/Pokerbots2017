@@ -16,6 +16,11 @@ Card::Card(void)
     this->value = UNKNOWN_RANK;
 }
 
+bool Card::is_unknown()
+{
+    return *this == Card();
+}
+
 bool Card::operator==(const Card &other)
 {
     return ((suit == other.suit) && (value == other.value));

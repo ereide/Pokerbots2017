@@ -20,6 +20,8 @@ class Deck
     Deck();
     ~Deck();
     Card drawCard();
+    bool extractCard(const Card &card);
+
     void shuffle();
     int getDeckSize() const { return size; }
 

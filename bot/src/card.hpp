@@ -42,6 +42,8 @@ class Card
     rank_enum_t get_rank();
     suit_enum_t get_suit();
 
+    bool is_unknown();
+
     //operator overload
     bool operator==(const Card &other);
     bool operator!=(const Card &other);

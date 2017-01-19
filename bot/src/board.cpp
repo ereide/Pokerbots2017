@@ -1,4 +1,6 @@
 #include "board.hpp"
+#include <iostream>
+
 
 Hand::Hand()
 {
@@ -32,12 +34,12 @@ void Hand::countHand(int rank_count[13], int suit_count[4])
     value = card_1.get_rank();
     suit = card_1.get_suit();
     rank_count[value] += 1;
-    suit_count[value] += 1;
+    suit_count[suit] += 1;
 
     value = card_2.get_rank();
     suit = card_2.get_suit();
     rank_count[value] += 1;
-    suit_count[value] += 1;
+    suit_count[suit] += 1;
 }
 
 bool Hand::operator==(const Hand &other)
@@ -81,29 +83,67 @@ void Board::reveal_river()
     river = deck.drawCard();
 }
 
-void Board::set_hero_hand(const Card &card_1,
+void Board::set_hand(const player_t &player, const Card &card_1,
                           const Card &card_2)
 {
-    hero_hand = Hand(card_1, card_2);
+    this->deck.extractCard(card_1);
+    this->deck.extractCard(card_2);    
+
+    switch (player){
+        case HERO_P:
+            hero_hand = Hand(card_1, card_2);
+            break;
+        case VILLAIN_P:
+            villain_hand = Hand(card_1, card_2);
+            break;
+    }
 }
 
 void Board::set_flop(const Card &flop_1,
                      const Card &flop_2,
                      const Card &flop_3)
 {
-    this->flop_1 = flop_1;
-    this->flop_2 = flop_2;
-    this->flop_3 = flop_3;
+
+    if (this->flop_1.is_unknown() && this->flop_2.is_unknown() && this->flop_3.is_unknown())
+    {
+        this->deck.extractCard(flop_1);
+        this->deck.extractCard(flop_2);
+        this->deck.extractCard(flop_3);
+
+        this->flop_1 = flop_1;
+        this->flop_2 = flop_2;
+        this->flop_3 = flop_3;
+    }
+    else
+    {
+        std::cerr << "ERROR *** FLOP CARDS ALREADY IN PLAY" << std::endl;
+    }
 }
 
 void Board::set_turn(const Card &turn_card)
 {
-    this->turn = turn_card;
+    if (this->turn.is_unknown())
+    {
+        this->deck.extractCard(turn_card);
+        this->turn = turn_card;
+    }
+    else
+    {
+        std::cerr << "ERROR *** TURN ALREADY IN PLAY" << std::endl;
+    }
 }
 
 void Board::set_river(const Card &river_card)
 {
-    this->river = river_card;
+    if (this->river.is_unknown())
+    {
+        this->deck.extractCard(river_card);
+        this->river = river_card;
+    }
+    else
+    {
+        std::cerr << "ERROR *** RIVER ALREADY IN PLAY" << std::endl;
+    }
 }
 
 winner_t Board::winner()
@@ -136,10 +176,12 @@ void Board::fillCountLists(int hero_rank_count[13], int hero_suit_count[4], int 
     {
         rank_enum_t value = board_cards[i].get_rank();
         suit_enum_t suit = board_cards[i].get_suit();
+
         hero_rank_count[value] += 1;
         villain_rank_count[value] += 1;
-        hero_suit_count[value] += 1;
-        villain_suit_count[value] += 1;
+
+        hero_suit_count[suit] += 1;
+        villain_suit_count[suit] += 1;
     }
 
     hero_hand.countHand(hero_rank_count, hero_suit_count);

@@ -78,4 +78,23 @@ BOOST_AUTO_TEST_CASE(testing_deck)
     }    
 }
 
+/*
+* Tests deck.extractCard()
+*/
+BOOST_AUTO_TEST_CASE(test_extract_card)
+{
+    Deck deck_1;
+    Deck deck_2 = deck_1;
+
+    Card card(HEARTS, SEVEN);
+
+    BOOST_ASSERT(deck_1 == deck_2);
+    deck_1.extractCard(card);
+    BOOST_ASSERT(deck_1 != deck_2);
+    BOOST_ASSERT(deck_2.extractCard(card));
+    BOOST_ASSERT(deck_1 == deck_2);
+    BOOST_ASSERT(~deck_2.extractCard(card));
+}
+
+
 BOOST_AUTO_TEST_SUITE_END();
