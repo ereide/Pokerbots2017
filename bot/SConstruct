@@ -10,7 +10,7 @@ common_libs = ['pthread']
 boost_libs = ['boost_program_options', 'boost_system']
 libs = [common_libs, boost_libs]
 
-cpppath      = ['#/src/', '#/SKPokerEval/src/']
+cpppath      = ['#/src/', '#/Evaluator/']
 libpath      = ['.']
 cppflags     = ['-Werror', '-Wall', '-Wextra']
 
@@ -22,7 +22,7 @@ env.Append(CPPPATH = cpppath)
 env.Append(CPPFLAGS = '-std=c++11')
 
 
-eval = SConscript('SKPokerEval/src/SConscript', 'env') 
+eval = SConscript('Evaluator/SConscript', 'env') 
 env.Append(LIBS = [libs, eval])
 
 src = SConscript('src/SConscript', 'env eval', variant_dir='build', duplicate = 0)
