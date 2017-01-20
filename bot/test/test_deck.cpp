@@ -119,6 +119,7 @@ BOOST_AUTO_TEST_CASE(test_extract_card)
 
     //Checking that extracting this card again will lead to failure
     BOOST_ASSERT(~deck_2.extractCard(card));
+
 }
 
 

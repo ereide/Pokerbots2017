@@ -44,15 +44,12 @@ Card Deck::drawCard()
 
 bool Deck::extractCard(const Card &card)
 {
-    int size = this->getDeckSize();
     int index = -1;
 
-    Card in_deck;
-    
-    for (int i = 0; i < size + 1; i++)
+    for (int i = 0; i < this->size; i++)
     {
-        in_deck = cards[i];
-        if (in_deck==card)
+        //TODO use find instead
+        if (cards[i] == card)
         {
             index = i;
             break;
@@ -69,7 +66,7 @@ bool Deck::extractCard(const Card &card)
     {
         Card new_card = this->drawCard();   
         this->cards[index] = new_card;
-        this->cards[size] = card;
+        this->cards[this->size] = card;
         return true;
     }
 }
