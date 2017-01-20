@@ -34,12 +34,16 @@ Card Deck::drawCard()
     if (size == 0)
     {
         std::cerr << "ERROR *** DECK EMPTY";
-        Card card(SUITS[0], RANKS[0]);
+        Card card;
         return card;
     }
 
-    size--;
-    return cards[size];
+    else 
+    {
+        size--;
+        return cards[size];
+    }
+
 }
 
 bool Deck::extractCard(const Card &card)

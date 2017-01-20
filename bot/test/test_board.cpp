@@ -26,6 +26,7 @@ BOOST_AUTO_TEST_CASE(board_counting)
 
     BOOST_ASSERT(board.getDeckSize() == 52 - 9);
 
+    /*
     int hero_rank_count[13] = {0};
     int villain_rank_count[13] = {0};
     int hero_suit_count[4] = {0};
@@ -54,6 +55,7 @@ BOOST_AUTO_TEST_CASE(board_counting)
     bool all_seven = (sum_villain_rank == 7 && sum_hero_rank == 7 &&
                       sum_hero_suit == 7 && sum_hero_suit == 7);
     BOOST_ASSERT(all_seven);
+    */
 }
 
 /*

@@ -59,12 +59,6 @@ bool Hand::operator!=(const Hand &other)
     return !(*this == other);
 }
 
-Board::Board()
-{
-    deck.shuffle();
-    //ctor
-}
-
 void Board::deal_hands()
 {
     hero_hand = Hand(deck.drawCard(), deck.drawCard());
@@ -154,15 +148,6 @@ void Board::set_river(const Card &river_card)
 
 winner_t Board::winner()
 {
-    //counts the numbers and suits of the cards in the
-    /*    int hero_rank_count[13] = {0};
-    int villain_rank_count[13] = {0};
-    int hero_suit_count[4] = {0};
-    int villain_suit_count[4] = {0};
-
-    fillCountLists(hero_rank_count, hero_suit_count, villain_rank_count, villain_suit_count);
-*/
-
     int hero_rank = SevenEval::GetRank(flop_1.card_to_int(), flop_2.card_to_int(), flop_3.card_to_int(),
                                    turn.card_to_int(), river.card_to_int(),
                                    hero_hand.card_1.card_to_int(), hero_hand.card_2.card_to_int());
@@ -194,27 +179,6 @@ void Board::getVisibleCards(Card board_cards[5])
     board_cards[2] = flop_3;
     board_cards[3] = turn;
     board_cards[4] = river;
-}
-
-void Board::fillCountLists(int hero_rank_count[13], int hero_suit_count[4], int villain_rank_count[13], int villain_suit_count[4])
-{
-    Card board_cards[5];
-    getVisibleCards(board_cards);
-
-    for (int i = 0; i < 5; i++)
-    {
-        rank_enum_t value = board_cards[i].get_rank();
-        suit_enum_t suit = board_cards[i].get_suit();
-
-        hero_rank_count[value] += 1;
-        villain_rank_count[value] += 1;
-
-        hero_suit_count[suit] += 1;
-        villain_suit_count[suit] += 1;
-    }
-
-    hero_hand.countHand(hero_rank_count, hero_suit_count);
-    villain_hand.countHand(villain_rank_count, villain_suit_count);
 }
 
 void Board::restart()

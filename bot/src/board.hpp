@@ -37,17 +37,15 @@ public:
   bool operator==(const Hand &other);
   bool operator!=(const Hand &other);
 
+private:
   Card card_1;
   Card card_2;
-
-private:
-
+  friend class Board;
 };
 
 class Board
 {
 public:
-  Board();
   void deal_hands();
   void reveal_flop();
   void reveal_turn();
@@ -67,7 +65,6 @@ public:
 
   void restart();
 
-  void fillCountLists(int hero_rank_count[13], int hero_suit_count[4], int villain_rank_count[13], int villain_suit_count[4]);
 
   Hand getHeroHand() const { return hero_hand; };
   Hand getVillainHand() const { return villain_hand; };

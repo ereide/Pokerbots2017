@@ -16,7 +16,7 @@ libs = [common_libs, boost_libs, eval]
 env.Append(LIBS = libs)
 
 
-source_files = ['main.cpp', 'player.cpp', 'card.cpp', 'deck.cpp', 'board.cpp', 'evaluator.cpp']
+source_files = ['main.cpp', 'player.cpp', 'card.cpp', 'deck.cpp', 'board.cpp']
 
 env.VariantDir('build', 'src', duplicate=0)
 
