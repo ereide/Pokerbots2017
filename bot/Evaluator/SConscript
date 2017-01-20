@@ -1,0 +1,21 @@
+Import('env')
+
+env = env.Clone()
+
+cpppath      = ['./src']
+libpath      = ['.']
+cppflags     = ['-Werror', '-Wall', '-Wextra']
+
+
+# env.Append(CPPPATH = cpppath)
+# env.Append(LIBPATH = libpath)
+
+
+
+source_files = ['FiveEval.cpp']
+
+#env.VariantDir('build', 'src', duplicate=0)
+
+eval = env.Library('eval', source_files)
+
+Return('eval')

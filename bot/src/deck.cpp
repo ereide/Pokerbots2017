@@ -42,6 +42,39 @@ Card Deck::drawCard()
     return cards[size];
 }
 
+bool Deck::extractCard(const Card &card)
+{
+    int size = this->getDeckSize();
+    int index = -1;
+
+    Card in_deck;
+    
+    for (int i = 0; i < size + 1; i++)
+    {
+        in_deck = cards[i];
+        if (in_deck==card)
+        {
+            index = i;
+            break;
+        }
+    }
+
+    if (index == -1)
+    {
+        std::cerr << "ERROR *** CARD NOT IN DECK" << std::endl;
+        return false;
+    }
+
+    else
+    {
+        Card new_card = this->drawCard();   
+        this->cards[index] = new_card;
+        this->cards[size] = card;
+        return true;
+    }
+}
+
+
 bool Deck::operator==(const Deck &other)
 {
     bool ans = true;

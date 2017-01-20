@@ -5,28 +5,28 @@
 
 enum rank_enum_t
 {
-    TWO = 0,
-    THREE,
-    FOUR,
-    FIVE,
-    SIX,
-    SEVEN,
-    EIGHT,
-    NINE,
-    TEN,
-    JACK,
-    QUEEN,
-    KING,
-    ACE,
-    UNKNOWN_RANK
+    TWO_R = 0,
+    THREE_R,
+    FOUR_R,
+    FIVE_R,
+    SIX_R,
+    SEVEN_R,
+    EIGHT_R,
+    NINE_R,
+    TEN_R,
+    JACK_R,
+    QUEEN_R,
+    KING_R,
+    ACE_R,
+    UNKNOWN_R
 };
 enum suit_enum_t
 {
-    HEARTS = 0,
-    DIAMONDS,
-    CLUBS,
-    SPADES,
-    UNKNOWN_SUIT
+    SPADES_S = 0,
+    HEARTS_S,
+    DIAMONDS_S,
+    CLUBS_S,
+    UNKNOWN_S
 };
 
 extern const rank_enum_t RANKS[];
@@ -42,13 +42,17 @@ class Card
     rank_enum_t get_rank();
     suit_enum_t get_suit();
 
+    bool is_unknown();
+
     //operator overload
     bool operator==(const Card &other);
     bool operator!=(const Card &other);
+    int card_to_int();
 
   private:
     suit_enum_t suit;
     rank_enum_t value;
+
 
     friend class Deck;
 };
