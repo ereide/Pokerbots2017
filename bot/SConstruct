@@ -19,7 +19,7 @@ env = Environment(ENV = { 'PATH' : newpath })
 
 env.Append(LIBS = libs)
 env.Append(CPPPATH = cpppath)
-env.Append(CPPFLAGS = '-std=c++11')
+env.Append(CPPFLAGS = '-std=c++0x')
 
 
 eval = SConscript('Evaluator/SConscript', 'env') 

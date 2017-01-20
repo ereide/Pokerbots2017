@@ -4,9 +4,6 @@
 
 #include "SevenEval.h"
 
-
-
-
 Hand::Hand()
 {
     //ctor
@@ -149,12 +146,12 @@ void Board::set_river(const Card &river_card)
 winner_t Board::winner()
 {
     int hero_rank = SevenEval::GetRank(flop_1.card_to_int(), flop_2.card_to_int(), flop_3.card_to_int(),
-                                   turn.card_to_int(), river.card_to_int(),
-                                   hero_hand.card_1.card_to_int(), hero_hand.card_2.card_to_int());
+                                       turn.card_to_int(), river.card_to_int(),
+                                       hero_hand.card_1.card_to_int(), hero_hand.card_2.card_to_int());
 
     int villain_rank = SevenEval::GetRank(flop_1.card_to_int(), flop_2.card_to_int(), flop_3.card_to_int(),
-                                      turn.card_to_int(), river.card_to_int(),
-                                      villain_hand.card_1.card_to_int(), villain_hand.card_2.card_to_int());
+                                          turn.card_to_int(), river.card_to_int(),
+                                          villain_hand.card_1.card_to_int(), villain_hand.card_2.card_to_int());
 
     if (hero_rank > villain_rank)
     {
