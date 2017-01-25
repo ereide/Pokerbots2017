@@ -33,7 +33,6 @@ EXTRA_DIST = \
 	config/gcov.m4 \
 	examples/Makefile.dos \
 	include/Makefile.dos \
-	java/Makefile.dos \
 	lib/Makefile.dos \
 	tests/Makefile.dos \
 	mktab_astud.vcproj \
@@ -46,19 +45,9 @@ EXTRA_DIST = \
 	poker-eval.sln \
 	WHATS-HERE.Java \
 	WHATS-HERE \
-	gentoo/dev-games/poker-eval/poker-eval-133.0-r1.ebuild \
-	csharp/API.cs \
-	csharp/Enum.cs \
-	csharp/EnumResult.cs \
-	csharp/GameParams.cs \
-	csharp/StdDeck.cs \
-	csharp/Test.cs \
-	csharp/Makefile \
-	csharp/TODO \
 	packaging-farm.bat \
 	poker-eval.nsi \
-	make_master.sh \
-	fink/libpoker-eval.info
+	make_master.sh
 
 SUBDIRS = \
 	lib \
