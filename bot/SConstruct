@@ -10,7 +10,7 @@ common_libs = ['pthread']
 boost_libs = ['boost_program_options', 'boost_system']
 libs = [common_libs, boost_libs]
 
-cpppath      = ['#/src/', '#/Evaluator/']
+cpppath      = ['#/src/', '#libs/Evaluator/']
 libpath      = ['.']
 cppflags     = ['-Werror', '-Wall', '-Wextra']
 
@@ -22,7 +22,7 @@ env.Append(CPPPATH = cpppath)
 env.Append(CPPFLAGS = '-std=c++0x')
 
 
-eval = SConscript('Evaluator/SConscript', 'env') 
+eval = SConscript('libs/Evaluator/SConscript', 'env') 
 env.Append(LIBS = [libs, eval])
 
 src = SConscript('src/SConscript', 'env eval', variant_dir='build', duplicate = 0)
