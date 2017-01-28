@@ -29,8 +29,9 @@ def canIDoThis(action,data):
 	return index
 # preflop strategy that goes all in on a pocket pair or high card (T,J,Q,K,A in hand) and checkfolds otherwise
 def getaction(myHand,data):
-	firstNum = myHand[0][0]
-	secondNum = myHand[1][0]
+
+	firstNum = myHand.card_1[0]
+	secondNum = myHand.card_2[0]
 	if firstNum == secondNum or max(master_array.index(firstNum),master_array.index(secondNum))>7:
 		print 'I GOT A PAIR!!! OR HAD A HIGH CARD !!1!!!!!11! or both'
 		if canIDoThis('BET',data)>-1:
