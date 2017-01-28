@@ -2,6 +2,9 @@ import argparse
 import socket
 import sys
 import prefloplogic as pl
+from game import Game, GameStats, Hand
+
+
 """
 Simple example pokerbot, written in python.
 
@@ -14,6 +17,7 @@ class Player:
         # Get a file-object for reading packets from the socket.
         # Using this ensures that you get exactly one packet per read.
         f_in = input_socket.makefile()
+        
         while True:
             # Block until the engine sends us a packet.
             data = f_in.readline().strip()
@@ -32,19 +36,37 @@ class Player:
             # illegal action.
             # When sending responses, terminate each response with a newline
             # character (\n) or your bot will hang!
-            word = data.split()[0]
+            words = data.split()
+
+            word = words[0]
+
+            if word == "NEWGAME":
+                yourName = words[1]
+                opponentsName = words[2]
+                stackSize = words[3] 
+                bb = words[4]
+                numHands = words[5]
+                timeBank = words[6]
+
+                game = Game(yourName, opponentsName, stackSize, bb, numHands, timeBank)
+                print game.__repr__()
+
             if word == 'NEWHAND':
                 # myHand stores hole cards. You'll want to update this if you ever discard
-                myHand = [data.split()[3],data.split()[4]]
+                myHand = Hand(data.split()[3],data.split()[4])
+
                 print myHand
+
             if word == "GETACTION":
                 # calls function defined in other python file
                 action = pl.getaction(myHand,data)
                 s.send(action)
+
             elif word == "REQUESTKEYVALUES":
                 # At the end, the engine will allow your bot save key/value pairs.
                 # Send FINISH to indicate you're done.
                 s.send("FINISH\n")
+
         # Clean up the socket.
         s.close()
 
