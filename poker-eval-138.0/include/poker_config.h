@@ -43,7 +43,7 @@
 
 #ifndef SIZEOF_LONG
 /* The size of a `long', as computed by sizeof. */
-#define SIZEOF_LONG 4
+#define SIZEOF_LONG 8
 #endif /* SIZEOF_LONG */
 
 #ifndef HAVE_INTTYPES_H
