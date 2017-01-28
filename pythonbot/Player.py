@@ -2,8 +2,8 @@ import argparse
 import socket
 import sys
 import prefloplogic as pl
-from game import Game, GameStats, Hand
-
+from game import Game, GameStats, NewHand
+from card import Card
 
 """
 Simple example pokerbot, written in python.
@@ -53,14 +53,36 @@ class Player:
 
             if word == 'NEWHAND':
                 # myHand stores hole cards. You'll want to update this if you ever discard
-                myHand = Hand(data.split()[3],data.split()[4])
+                handId = words[1] 
+                button = words[2]
+                holeCard1 = words[3]
+                holeCard2 = words[4]
+                myBank = words[5]
+                otherBank = words[6] 
+                timeBank = words[7]
 
-                print myHand
+                myHand = NewHand(handId, button, holeCard1, holeCard2, myBank, otherBank, timeBank)
 
             if word == "GETACTION":
                 # calls function defined in other python file
+                print words
+                potsize = words[1]
+                numBoardCards = int(words[2])
+                print numBoardCards
+                boardcardlist = words[3:3+numBoardCards]
+                print boardcardlist
+
+                numLastActions = int(words[3+numBoardCards])
+                lastactionslist = list(words[4+numBoardCards:4+numBoardCards + numLastActions])
+                print lastactionslist
+                numLegalActions = int(words[4 + numBoardCards + numLastActions])
+                legalActionList = list(words[5 + numBoardCards + numLastActions: 5+numBoardCards + numLastActions + numLegalActions])
+                
+                print legalActionList
+
                 action = pl.getaction(myHand,data)
                 s.send(action)
+
 
             elif word == "REQUESTKEYVALUES":
                 # At the end, the engine will allow your bot save key/value pairs.

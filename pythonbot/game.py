@@ -1,12 +1,23 @@
+from card import Card
 
+class Actions():
+    def __init__(self, boardcardlist, lastactionslist, legalactionslist):
+        pass
 
-class Hand():
-    def __init__(self, card_1, card_2):
-        self.card_1 = card_1
-        self.card_2 = card_2
+class NewHand():
+    def __init__(self, handId, button, holeCard1, holeCard2, myBank, otherBank, timeBank):
+        self.id = handId
+        self.button = button
+
+        self.card_1 = Card(holeCard1)
+        self.card_2 = Card(holeCard2)
+
+        self.myBank = myBank
+        self.otherBank = otherBank
+        self.timeBank = timeBank
     
     def __str__(self):
-        return "(%s, %s)" % (self.card_1, self.card_2)
+        return "(%s, %s)" % (str(self.card_1), str(self.card_2))
 
 class Game(object):
     def __init__(self, yourName, opponentsName, stackSize, bb, numHands, timeBank):
@@ -33,7 +44,7 @@ class GameStats(object):
         self.win_count = 0
         self.instant_fold = 0 #how often the opponent has folded instantly
         self.pre_flop_raise = 0 #
-        self.voluntarily_pot_into_pot_count = 0.8 #call or raise pre flop
+        self.voluntarily_pot_into_pot_count = 0 #call or raise pre flop
         self.init_fold_count = 0 #how often they play their hand
         self.three_bet_count = 0 #how often they re-raise pre flop
         self.fold_to_initial_pre_flop_raise_count = 0
