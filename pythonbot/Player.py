@@ -56,8 +56,9 @@ class Player:
                 # calls function defined in other python file
 
                 boardcardlist, lastactionslist, legalActionList = self.parse_action_update(words)
-                self.game.decide_action(boardcardlist, lastactionslist, legalActionList)
-                action = pl.getaction(myHand,data)
+                action = self.game.decide_action(boardcardlist, lastactionslist, legalActionList)
+
+                #action = pl.getaction(myHand,data)
                 #print action
                 s.send(action)
 

@@ -7,9 +7,27 @@ class GameState():
     RIVER = "RIVER"
     NONE = "NONE"
 
+
+
 class Actions():
-    def __init__(self, boardcardlist, lastactionslist, legalactionslist):
-        pass
+    BET = "BET"
+    CALL = "CALL"
+    CHECK = "CHECK"
+    FOLD = "FOLD"
+    DISCARD = "DISCARD"
+    RAISE = "RAISE"
+    
+    @staticmethod
+    def Call():
+        return "CALL\n"
+    def Bet(amount):
+        return "BET:%s\n" % amount
+    def Check():
+        return "CHECK\n"
+    def Discard(card):
+        return "DISCARD:%s\n" % card
+    def RAISE(amount):
+        return "RAISE:%s\n" % amount
 
 class NewHand():
     def __init__(self, handId, button, holeCard1, holeCard2, myBank, otherBank, timeBank):
@@ -46,14 +64,51 @@ class Game(object):
         self.hand = newhand
         self.game_stats.num_hands_played += 1
         self.game_state = GameState.PREFLOP
+        print "\n"
 
     def endhand(self, boardcardlist, lastactionslist):
         print boardcardlist
         self.update_stats(lastactionslist)
 
+    def is_legal(self, legalActionList, action):
+        #TODO: fix bet and discard
+        if action == Actions.BET:
+            return False
+        elif action == Actions.DISCARD:
+            return False
+        elif action == Actions.RAISE:
+            return False
+        else:
+            return True
+            if action in legalActionList:
+                return True
+ 
+    def check_call(self, legalActionList):       
+        if self.is_legal(legalActionList, Actions.CALL):
+            return Actions.Call()
+        elif self.is_legal(legalActionList, Actions.CHECK):
+            return Actions.Check()
+
     def decide_action(self, boardcardlist, lastactionslist, legalActionList):
         print "board", boardcardlist, "hand", self.hand
         self.update_stats(lastactionslist)
+        print "Legal actions", legalActionList
+
+        if self.game_state == GameState.PREFLOP:
+            return self.check_call(legalActionList)
+        
+        elif self.game_state == GameState.FLOP:
+            return self.check_call(legalActionList)
+        
+        elif self.game_state == GameState.TURN:
+            return self.check_call(legalActionList)
+
+        elif self.game_state == GameState.RIVER:
+            return self.check_call(legalActionList)
+        
+        else:
+            print "WHAT JUST HAPPENED"
+            raise Exception
 
     def increase_game_state(self):
         if self.game_state == GameState.PREFLOP:
@@ -77,11 +132,13 @@ class Game(object):
 
     def analyze_actions(self, action):
         action_list = action.split(":")
+        print action_list
         if action_list[-1] == self.villain:
             print self.villain + ": ",  action_list[:-1]
 
         elif action_list[-1] == self.hero:
             print self.hero + ": ",  action_list[:-1]
+
         elif action_list[0] == "DEAL":
             self.increase_game_state()
             print "game state:", self.game_state
@@ -110,7 +167,7 @@ class GameStats(object):
         self.win_count = 0
         self.instant_fold = 0 #how often the opponent has folded instantly
         self.pre_flop_raise = 0 #
-        self.voluntarily_pot_into_pot_count = 0 #call or raise pre flop
+        self.voluntarily_put_into_pot_count = 0 #call or raise pre flop
         self.init_fold_count = 0 #how often they play their hand
         self.three_bet_count = 0 #how often they re-raise pre flop
         self.fold_to_initial_pre_flop_raise_count = 0
