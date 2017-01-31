@@ -1,5 +1,12 @@
 from card import Card
 
+class GameState():
+    PREFLOP = "PREFLOP"
+    FLOP = "FLOP"
+    TURN = "TURN"
+    RIVER = "RIVER"
+    NONE = "NONE"
+
 class Actions():
     def __init__(self, boardcardlist, lastactionslist, legalactionslist):
         pass
@@ -15,33 +22,73 @@ class NewHand():
         self.myBank = myBank
         self.otherBank = otherBank
         self.timeBank = timeBank
+
     
+
     def __str__(self):
         return "(%s, %s)" % (str(self.card_1), str(self.card_2))
 
 class Game(object):
     def __init__(self, yourName, opponentsName, stackSize, bb, numHands, timeBank):
-        self.yourName = yourName
-        self.opponentsName = opponentsName
+        self.hero = yourName
+        self.villain = opponentsName
         self.bb = bb
         self.stackSize = stackSize
         self.numHands = numHands
         self.timeBank = timeBank
 
         #game stats
-        self.game_stats = GameStats(self.yourName, self.opponentsName)
+        self.game_stats = GameStats(self.hero, self.villain)
+        self.game_state = GameState.NONE
+
 
     def start_hand(self, newhand):
         self.hand = newhand
         self.game_stats.num_hands_played += 1
+        self.game_state = GameState.PREFLOP
 
     def endhand(self, boardcardlist, lastactionslist):
         print boardcardlist
-        self.game_stats.update_stats(lastactionslist, game_state)
+        self.update_stats(lastactionslist)
 
     def decide_action(self, boardcardlist, lastactionslist, legalActionList):
         print "board", boardcardlist, "hand", self.hand
-        self.game_stats.update_stats(lastactionslist, game_state)
+        self.update_stats(lastactionslist)
+
+    def increase_game_state(self):
+        if self.game_state == GameState.PREFLOP:
+            self.game_state = GameState.FLOP
+            
+        elif self.game_state == GameState.FLOP:
+            self.game_state = GameState.TURN
+        
+        elif self.game_state == GameState.TURN:
+            self.game_state = GameState.RIVER
+        
+        elif self.game_state == GameState.RIVER:
+            self.game_state = GameState.NONE
+            raise Exception
+        else:
+            raise Exception  
+            
+    def update_stats(self, actions):
+        for action in actions:
+            self.analyze_actions(action)
+
+    def analyze_actions(self, action):
+        action_list = action.split(":")
+        if action_list[-1] == self.villain:
+            print self.villain + ": ",  action_list[:-1]
+
+        elif action_list[-1] == self.hero:
+            print self.hero + ": ",  action_list[:-1]
+        elif action_list[0] == "DEAL":
+            self.increase_game_state()
+            print "game state:", self.game_state
+
+        else:
+            print action_list
+
 
     def __str__(self):
         return "(yourName = %s, opponentsName = %s, stackSize = %s, bb = %s, numHands = %s, timeBank = %s)" % (self.yourName, self.opponentsName, self.stackSize, self.bb, self.numHands, self.timeBank)
@@ -105,24 +152,12 @@ class GameStats(object):
         self.check_to_raise  = 0 #??
         self.twoB = 0.15
 
-    def update_stats(self, lastactionslist, game_state):
-        #print lastactionslist
-        for action in lastactionslist:
-            self.analyze_actions(action)
+    def update_stats_hero(self, action, game_state):
+        pass
     
 
-    def analyze_actions(self, action):
-        action_list = action.split(":")
-        if action_list[-1] == self.villain:
-            print self.villain + ": ",  action_list[:-1]
-        elif action_list[-1] == self.hero:
-            print self.hero + ": ",  action_list[:-1]
-        elif action_list[0] == "DEAL":
-            print "game state:", action_list[1:]
-
-        else:
-            print action_list
-            
+    def update_stats_villain(self, action, game_state):
+        pass
 
 
 
