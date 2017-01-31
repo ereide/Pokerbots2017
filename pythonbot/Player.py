@@ -41,45 +41,17 @@ class Player:
             word = words[0]
 
             if word == "NEWGAME":
-                yourName = words[1]
-                opponentsName = words[2]
-                stackSize = words[3] 
-                bb = words[4]
-                numHands = words[5]
-                timeBank = words[6]
-
-                game = Game(yourName, opponentsName, stackSize, bb, numHands, timeBank)
+                self.game = self.start_game(words)
                 print game.__repr__()
 
             if word == 'NEWHAND':
                 # myHand stores hole cards. You'll want to update this if you ever discard
-                handId = words[1] 
-                button = words[2]
-                holeCard1 = words[3]
-                holeCard2 = words[4]
-                myBank = words[5]
-                otherBank = words[6] 
-                timeBank = words[7]
-
-                myHand = NewHand(handId, button, holeCard1, holeCard2, myBank, otherBank, timeBank)
+                myHand = self.start_hand(words)
 
             if word == "GETACTION":
                 # calls function defined in other python file
-                print words
-                potsize = words[1]
-                numBoardCards = int(words[2])
-                print numBoardCards
-                boardcardlist = words[3:3+numBoardCards]
-                print boardcardlist
 
-                numLastActions = int(words[3+numBoardCards])
-                lastactionslist = list(words[4+numBoardCards:4+numBoardCards + numLastActions])
-                print lastactionslist
-                numLegalActions = int(words[4 + numBoardCards + numLastActions])
-                legalActionList = list(words[5 + numBoardCards + numLastActions: 5+numBoardCards + numLastActions + numLegalActions])
-                
-                print legalActionList
-
+                boardcardlist, lastactionslist, legalActionList = self.action_update(words)
                 action = pl.getaction(myHand,data)
                 s.send(action)
 
@@ -91,6 +63,42 @@ class Player:
 
         # Clean up the socket.
         s.close()
+
+
+    def start_game(self, words):
+        yourName = words[1]
+        opponentsName = words[2]
+        stackSize = words[3] 
+        bb = words[4]
+        numHands = words[5]
+        timeBank = words[6]
+
+        return Game(yourName, opponentsName, stackSize, bb, numHands, timeBank)
+    
+    def start_hand(self, words):
+        handId = words[1] 
+        button = words[2]
+        holeCard1 = words[3]
+        holeCard2 = words[4]
+        myBank = words[5]
+        otherBank = words[6] 
+        timeBank = words[7]
+        return NewHand(handId, button, holeCard1, holeCard2, myBank, otherBank, timeBank)
+
+    def action_update(self, words)
+        print words
+        potsize = words[1]
+        numBoardCards = int(words[2])
+        print numBoardCards
+        boardcardlist = words[3:3+numBoardCards]
+
+        numLastActions = int(words[3+numBoardCards])
+        lastactionslist = list(words[4+numBoardCards:4+numBoardCards + numLastActions])
+        numLegalActions = int(words[4 + numBoardCards + numLastActions])
+        legalActionList = list(words[5 + numBoardCards + numLastActions: 5+numBoardCards + numLastActions + numLegalActions])
+        
+        return boardcardlist, lastactionslist, legalActionList
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='A Pokerbot.', add_help=False, prog='pokerbot')
