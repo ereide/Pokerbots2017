@@ -65,6 +65,7 @@ class Player:
             if word == "HANDOVER":
                 stack1, stack2, boardcardlist, lastactionslist = self.parse_handover(words)
                 self.game.endhand(boardcardlist, lastactionslist)
+                print "Current status: ", stack1, stack2
 
             elif word == "REQUESTKEYVALUES":
                 # At the end, the engine will allow your bot save key/value pairs.
