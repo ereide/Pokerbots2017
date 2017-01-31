@@ -1,12 +1,23 @@
+from card import Card
 
+class Actions():
+    def __init__(self, boardcardlist, lastactionslist, legalactionslist):
+        pass
 
-class Hand():
-    def __init__(self, card_1, card_2):
-        self.card_1 = card_1
-        self.card_2 = card_2
+class NewHand():
+    def __init__(self, handId, button, holeCard1, holeCard2, myBank, otherBank, timeBank):
+        self.id = handId
+        self.button = button
+
+        self.card_1 = Card(holeCard1)
+        self.card_2 = Card(holeCard2)
+
+        self.myBank = myBank
+        self.otherBank = otherBank
+        self.timeBank = timeBank
     
     def __str__(self):
-        return "(%s, %s)" % (self.card_1, self.card_2)
+        return "(%s, %s)" % (str(self.card_1), str(self.card_2))
 
 class Game(object):
     def __init__(self, yourName, opponentsName, stackSize, bb, numHands, timeBank):
@@ -18,7 +29,19 @@ class Game(object):
         self.timeBank = timeBank
 
         #game stats
-        self.game_stats = GameStats()
+        self.game_stats = GameStats(self.yourName, self.opponentsName)
+
+    def start_hand(self, newhand):
+        self.hand = newhand
+        self.game_stats.num_hands_played += 1
+
+    def endhand(self, boardcardlist, lastactionslist):
+        print boardcardlist
+        self.game_stats.update_stats(lastactionslist, game_state)
+
+    def decide_action(self, boardcardlist, lastactionslist, legalActionList):
+        print "board", boardcardlist, "hand", self.hand
+        self.game_stats.update_stats(lastactionslist, game_state)
 
     def __str__(self):
         return "(yourName = %s, opponentsName = %s, stackSize = %s, bb = %s, numHands = %s, timeBank = %s)" % (self.yourName, self.opponentsName, self.stackSize, self.bb, self.numHands, self.timeBank)
@@ -26,14 +49,21 @@ class Game(object):
     def __repr__(self):
         return "Game%s" % self.__str__()
 
+
+
+
 class GameStats(object):
-    def __init__(self):
+    def __init__(self, hero, villain):
+
+        self.hero = hero
+        self.villain = villain
+
         #Pre flop stats
         self.num_hands_played = 0 
         self.win_count = 0
         self.instant_fold = 0 #how often the opponent has folded instantly
         self.pre_flop_raise = 0 #
-        self.voluntarily_pot_into_pot_count = 0.8 #call or raise pre flop
+        self.voluntarily_pot_into_pot_count = 0 #call or raise pre flop
         self.init_fold_count = 0 #how often they play their hand
         self.three_bet_count = 0 #how often they re-raise pre flop
         self.fold_to_initial_pre_flop_raise_count = 0
@@ -74,6 +104,26 @@ class GameStats(object):
         self.call_to_raise = 0 #??
         self.check_to_raise  = 0 #??
         self.twoB = 0.15
+
+    def update_stats(self, lastactionslist, game_state):
+        #print lastactionslist
+        for action in lastactionslist:
+            self.analyze_actions(action)
+    
+
+    def analyze_actions(self, action):
+        action_list = action.split(":")
+        if action_list[-1] == self.villain:
+            print self.villain + ": ",  action_list[:-1]
+        elif action_list[-1] == self.hero:
+            print self.hero + ": ",  action_list[:-1]
+        elif action_list[0] == "DEAL":
+            print "game state:", action_list[1:]
+
+        else:
+            print action_list
+            
+
 
 
 
