@@ -1,4 +1,5 @@
-from card import Card
+from card import Card, NewHand
+from helper import how_far_away_from_flush
 
 class GameState():
     PREFLOP = "PREFLOP"
@@ -20,31 +21,26 @@ class Actions():
     @staticmethod
     def Call():
         return "CALL\n"
+
+    @staticmethod
     def Bet(amount):
         return "BET:%s\n" % amount
+
+    @staticmethod
     def Check():
         return "CHECK\n"
+
+    @staticmethod
     def Discard(card):
         return "DISCARD:%s\n" % card
-    def RAISE(amount):
+
+    @staticmethod
+    def Raise(amount):
         return "RAISE:%s\n" % amount
 
-class NewHand():
-    def __init__(self, handId, button, holeCard1, holeCard2, myBank, otherBank, timeBank):
-        self.id = handId
-        self.button = button
 
-        self.card_1 = Card(holeCard1)
-        self.card_2 = Card(holeCard2)
 
-        self.myBank = myBank
-        self.otherBank = otherBank
-        self.timeBank = timeBank
 
-    
-
-    def __str__(self):
-        return "(%s, %s)" % (str(self.card_1), str(self.card_2))
 
 class Game(object):
     def __init__(self, yourName, opponentsName, stackSize, bb, numHands, timeBank):
@@ -73,21 +69,30 @@ class Game(object):
     def is_legal(self, legalActionList, action):
         #TODO: fix bet and discard
         if action == Actions.BET:
-            return False
+            return any(action in string for string in legalActionList)
         elif action == Actions.DISCARD:
-            return False
+            return any(action in string for string in legalActionList)
         elif action == Actions.RAISE:
-            return False
+            return any(action in string for string in legalActionList)
         else:
-            return True
             if action in legalActionList:
                 return True
+            else:
+                return False
+        return False
  
     def check_call(self, legalActionList):       
         if self.is_legal(legalActionList, Actions.CALL):
             return Actions.Call()
         elif self.is_legal(legalActionList, Actions.CHECK):
             return Actions.Check()
+
+    def all_in(self, legalActionList):
+    
+        if self.is_legal(legalActionList, Actions.RAISE):
+            return Actions.Raise()
+        if self.is_legal(legalActionList, Actions.BET):
+            return Actions.Bet()
 
     def decide_action(self, boardcardlist, lastactionslist, legalActionList):
         print "board", boardcardlist, "hand", self.hand
@@ -98,6 +103,10 @@ class Game(object):
             return self.check_call(legalActionList)
         
         elif self.game_state == GameState.FLOP:
+            if how_far_away_from_flush(boardcardlist, self.hand) == 0:
+                return self.all_in(legalActionList)
+            
+
             return self.check_call(legalActionList)
         
         elif self.game_state == GameState.TURN:

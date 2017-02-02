@@ -6,6 +6,7 @@ def test(s):
         return int(s)
     except ValueError:
         return -1
+
 # function that returns the index of the numLegalActions element of the packet, 
 # using the observation that numLegalActions is always the fourth integer in the GETACTION packet.
 def splitPacket(data):
@@ -27,6 +28,7 @@ def canIDoThis(action,data):
 		if packet[i][0:len(action)]==action:
 			index = i
 	return index
+
 # preflop strategy that goes all in on a pocket pair or high card (T,J,Q,K,A in hand) and checkfolds otherwise
 def getaction(myHand,data):
 
