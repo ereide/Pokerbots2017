@@ -104,7 +104,8 @@ class Player:
         lastactionslist = list(words[4+numBoardCards:4+numBoardCards + numLastActions])
         numLegalActions = int(words[4 + numBoardCards + numLastActions])
         legalActionList = list(words[5 + numBoardCards + numLastActions: 5+numBoardCards + numLastActions + numLegalActions])
-        
+        legalActionList = [string.split(':') for string in legalActionList]
+        #print legalActionList
         #print lastactionslist
         return boardcardlist, lastactionslist, legalActionList
     

@@ -8,8 +8,8 @@ class SUITS(object):
     DIAMONDS = 'd'
 
 
-def how_far_away_from_flush(hand, board):
-    cards = [hand.card1, hand.card2] + board
+def how_far_away_from_flush(board, hand):
+    cards = [hand.card_1, hand.card_2] + [Card(card) for card in board]
     num_spades = 0
     num_clubs = 0
     num_diamonds = 0
@@ -29,4 +29,7 @@ def how_far_away_from_flush(hand, board):
 
 
 
-    
+def how_far_away_from_straight(board, hand):
+    cards = [hand.card_1, hand.card_2] + [Card(card) for card in board]
+    card_values = [card.value for card in cards]
+    #print card_values
