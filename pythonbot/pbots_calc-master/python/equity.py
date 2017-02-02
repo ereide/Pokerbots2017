@@ -1,5 +1,6 @@
 import subprocess
 import sys
+#use two arguments for hands. three for board. they are all strings
 #import ../pythonbot/pbots_calc-master/example/calculator.sh
 def run_equity(hand1,hand2,board=None):#hand,hand,board):
     #subprocess.hand[0],hand[1]
@@ -20,6 +21,7 @@ def run_equity(hand1,hand2,board=None):#hand,hand,board):
         input=instring+" "+board
     else:
         input=instring
+    print(input)
     output = subprocess.call(input,shell=True)
     return 0
 
@@ -28,7 +30,8 @@ def run_equity(hand1,hand2,board=None):#hand,hand,board):
 #   print True
 s="9dtd"
 t="9hjd"
-run_equity(s,t)
+#u="3h9das"
+run_equity(s,t,"2c3djs")
 #print("SWAG")
 
 
