@@ -145,7 +145,7 @@ class Game(object):
         self.game_state = GameState.NONE
 
 
-    def start_hand(self, newhand):
+    def start_hand(self, newhand):  
         self.hand = newhand
         self.game_stats.num_hands_played += 1
         self.game_state = GameState.PREFLOP
@@ -159,6 +159,16 @@ class Game(object):
         allowed_actions = [item[0] for item in legalActionList]
         return action in allowed_actions
  
+
+ 
+    def bet_min(self, actions):
+        if actions.is_legal(Actions.RAISE):
+            return Actions.Raise(actions.min_raise)
+        elif actions.is_legal(Actions.BET):
+            return Actions.Bet(actions.min_bet)
+        else:
+            return self.check_call(actions)         
+
     def check_call(self, actions):       
         if actions.is_legal(Actions.CALL):
             return Actions.Call()
@@ -177,9 +187,8 @@ class Game(object):
             
 
     def decide_action(self, boardcardlist, lastactionslist, legalActionList):
-        #print "board", boardcardlist, "hand", self.hand
+        print "board", boardcardlist, "hand", self.hand
         self.update_stats(lastactionslist)
-        #print "Legal actions", legalActionList
 
         actions = Actions(legalActionList)
 

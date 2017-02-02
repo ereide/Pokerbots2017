@@ -7,7 +7,7 @@ def run_equity():#hand,hand,board):
     #print value
    # value=subprocess.call(["ls", "-l"])
     value=subprocess.check_output(["ls"])
-    output = subprocess.call("./calculator.sh 4hqd:js9h askcqh",shell=True)
+    output = subprocess.call("./calculator.sh 4hqd:js9h askcqh", shell=True)
     print "HI"
     print output
     return 0
